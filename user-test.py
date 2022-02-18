@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python3.9
 import unittest
 from user import User
 
@@ -18,6 +18,24 @@ class TestUser(unittest.TestCase):#helps in creating test cases
 # Save the user 
     def test_save_user(self):
         self.new_user.save_user()
+        self.assertEqual(len(User.user_list),1)
+# teardown executes a set of instructions after every test
+    def tearDown(self):
+        User.user_list = []
+
+#saving multiple users
+    def test_save_multiple_user(self):
+        self.new_user.save_user()
+        second_user = User("Chep","Towett","towettchep@gmail.com","14567")
+        second_user.save_user()
+        self.assertEqual(len(User.user_list),2)
+# delete Account
+    def test_delete_user(self):
+        self.new_user.save_user()
+        second_user = User("Chep","Towett","towettchep@gmail.com","14567")
+        second_user.save_user()
+
+        self.new_user.delete_user()
         self.assertEqual(len(User.user_list),1)
 
 if __name__ == '__main__':

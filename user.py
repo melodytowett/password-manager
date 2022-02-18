@@ -9,3 +9,7 @@ class User:
 
     def save_user(self):
         User.user_list.append(self)
+
+# method to delte saved contact
+    def delete_user(self):
+        User.user_list.remove(self)
