@@ -14,6 +14,12 @@ class TestUser(unittest.TestCase):#helps in creating test cases
         self.assertEqual(self.new_user.email,"melochep@gmail.com")
         self.assertEqual(self.new_user.personal_id,"01234")
 
+
+# Save the user 
+    def test_save_user(self):
+        self.new_user.save_user()
+        self.assertEqual(len(User.user_list),1)
+
 if __name__ == '__main__':
     unittest.main()
     

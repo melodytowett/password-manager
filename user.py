@@ -6,5 +6,6 @@ class User:
         self.last_name = last_name
         self.personal_id = personal_id
         self.email = email
-        
-        pass
+
+    def save_user(self):
+        User.user_list.append(self)
