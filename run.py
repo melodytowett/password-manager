@@ -1,5 +1,6 @@
 #!/usr/bin/env python3.9
 #from tabnanny import check
+from re import search
 from sys import platform
 from user import User
 from credentials import Credentials
@@ -13,8 +14,6 @@ def save_account(user):
 def delete_account(user):
     user.delete_user()
 
-
-
 def add_credential(platform,u_name,e_address,password,p_number):
     new_credential = Credentials(platform,u_name,e_address,p_number,password)
     return new_credential
@@ -23,7 +22,7 @@ def save_credential(credential):
     return Credentials.save_credentials(credential)
 
 def del_credential(credential):
-    credential.delete_ceredntial
+    credential.delete_ceredntial()
 
 def find_credential(platform):
     return Credentials.find_by_platform(platform)
@@ -33,10 +32,6 @@ def check_existing_credential(platform):
 
 def display_credential():
     return Credentials.display_credentials()
-
-
-
-
 
 
 
@@ -71,12 +66,12 @@ def main():
             print('\n')
 
             while True:
-                print("Use these codes : ip-input platform,dcp-delete credentials, fc-find credentials, dsc-display credentials")
+                print("Use these codes : ip-input platform,del-c -delete credentials, fc-find credentials, dsc-display credentials")
                 short_code = input().lower()
 
                 if short_code == 'ip':
                     print("Save a platform")
-                    print("-"*10)
+                    platform = input()
 
                     print("username....")
                     u_name = input()
@@ -90,7 +85,7 @@ def main():
                     print("p_number")
                     p_number = input()
 
-                    save_credential(add_credential(u_name,e_address,password,p_number))
+                    save_credential(add_credential(platform,u_name,e_address,password,p_number))
                     print('/n')
                     print(f"{platform} credential has been created")
                     print('/n')
@@ -104,12 +99,28 @@ def main():
                             print('/n')
 
                         else:
-                            print('/n')
-                            print("No credentials saved yet")
-                            print('/n')
                             
+                            print("No credentials saved yet")
+                          
+                elif short_code == "fc":
+                    print("Enter the platform you wan to find")
+                    search_credential = input()
+                    if check_existing_credential(search_credential):
+                        search_platform = find_credential(search_credential)
+                        print(f"{search_platform.username} {search_platform.platform} {search_platform.phone_number} {search_platform.username}")
+                        print('-'*20)
+                    else:
+                        print("Credential not found")
 
-
+                elif short_code == 'del-c':
+                    print("Which platform credential do you want to delete\n")
+                    delete_platform = input()
+                    if check_existing_credential(delete_platform):
+                        creden = find_credential(delete_platform)
+                        del_credential(creden)
+                        print("credentials deleted")
+                    else:
+                        print("credentils not found")
            
 
         elif short_code == 'dc':

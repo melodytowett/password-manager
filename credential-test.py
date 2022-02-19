@@ -37,7 +37,7 @@ class TestCredentials(unittest.TestCase):
         mycredentials = Credentials("Whatsapp","Chepkorir","chepko@gmail.com","0712345678","M2345") 
         mycredentials.save_credentials
         self.new_credential.delete_credentials()
-        self.assertEqual(len(Credentials.credential_list),1)
+        self.assertEqual(len(Credentials.credential_list),0)
 
     def test_find_credentials_by_platform(self):
         self.new_credential.save_credentials()
