@@ -1,6 +1,8 @@
 #!/usr/bin/env python3.9
 #from tabnanny import check
 from re import search
+import string
+import random
 from sys import platform
 from user import User
 from credentials import Credentials
@@ -14,8 +16,8 @@ def save_account(user):
 def delete_account(user):
     user.delete_user()
 
-def add_credential(platform,u_name,e_address,password,p_number):
-    new_credential = Credentials(platform,u_name,e_address,p_number,password)
+def add_credential(platform,u_name,e_address,t_password,gen_password,p_number):
+    new_credential = Credentials(platform,u_name,e_address,p_number,t_password,gen_password)
     return new_credential
 
 def save_credential(credential):
@@ -79,13 +81,20 @@ def main():
                     print("Email")
                     e_address = input()
 
-                    print("password")
-                    password = input()
-
                     print("p_number")
                     p_number = input()
 
-                    save_credential(add_credential(platform,u_name,e_address,password,p_number))
+                    print("password")
+                    t_password = input()
+
+                    print("generate your password")
+                    S = 8
+                    rand = ''.join(random.choices(string.ascii_letters + string.digits,k = S))
+                    print("Your  generated password is:"+str(rand))
+                    gen_password = input()  
+
+
+                    save_credential(add_credential(platform,u_name,e_address,t_password,gen_password,p_number))
                     print('/n')
                     print(f"{platform} credential has been created")
                     print('/n')
@@ -133,9 +142,6 @@ def main():
               else:
                     print("Dont have an account")
                     
-
-
-
         else:
             print("short code not available")
 if __name__ == '__main__':
