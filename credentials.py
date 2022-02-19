@@ -1,12 +1,13 @@
 class Credentials:
     credential_list = []
 
-    def __init__(self,platform, username,email,phone_no):
+    def __init__(self,platform, username,email,phone_no,password):
 
         self.platform = platform
         self.username = username
         self.email = email
-        self.phone_no = phone_no 
+        self.phone_no = phone_no
+        self.password = password 
 
     def save_credentials(self):
         Credentials.credential_list.append(self)
