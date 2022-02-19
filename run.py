@@ -94,9 +94,20 @@ def main():
                     print('/n')
                     print(f"{platform} credential has been created")
                     print('/n')
-                elif short_code ==  'dcp':
+                elif short_code ==  'dsc':
                     if display_credential():
-                        print()
+                        print("Heres the list of all your ceredntials")
+                        print('/n')
+                        
+                        for credentials in display_credential():
+                            print(f"{credentials.platform}----{credentials.username}....{credentials.email}...{credentials.phone_no}")
+                            print('/n')
+
+                        else:
+                            print('/n')
+                            print("No credentials saved yet")
+                            print('/n')
+                            
 
 
            
