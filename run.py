@@ -44,7 +44,7 @@ def main():
     print('\n')
 
     while True:
-        print("use these short codes : ca - creat you account, dc- delete account")
+        print("use these short codes : ca - creat your account, dc- delete account")
         short_code = input().lower()
         if short_code == 'ca':
             print("Create account")
@@ -68,7 +68,12 @@ def main():
             print('\n')
 
             while True:
-                print("Use these codes : ip-input platform,del-c -delete credentials, fc-find credentials, dsc-display credentials")
+                print("""USE THESE SHORT CODES :
+                  ip-input platform,
+                  del-c -delete credentials,
+                  fc-find credentials, 
+                  dsc-display credentials,
+                  gp-generate platform random password""")
                 short_code = input().lower()
 
                 if short_code == 'ip':
@@ -102,7 +107,7 @@ def main():
                     if display_credential():
                         print("Heres the list of all your ceredntials")
                         print('/n')
-                        
+                       
                         for credentials in display_credential():
                             print(f"{credentials.platform}----{credentials.username}....{credentials.email}...{credentials.phone_no}")
                             print('/n')
