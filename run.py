@@ -7,6 +7,7 @@ from sys import platform
 from user import User
 from credentials import Credentials
 def create_account(fname,lname,pid,email): 
+    """funtion to create user account"""
     new_user = User(fname,lname,pid,email)
     return new_user
 
@@ -14,9 +15,11 @@ def save_account(user):
    return User.save_user(user)
 
 def delete_account(user):
+    """function to delete user account"""
     user.delete_user()
 
 def add_credential(platform,u_name,e_address,password,p_number):
+    """funtion to create credential"""
     new_credential = Credentials(platform,u_name,e_address,p_number,password)
     return new_credential
 
@@ -24,15 +27,19 @@ def save_credential(credential):
     return Credentials.save_credentials(credential)
 
 def del_credential(credential):
+    """funtion to delete credential"""
     credential.delete_credential()
 
 def find_credential(platform):
+    """Function to find save credentials by platfrom name"""
     return Credentials.find_by_platform(platform)
 
 def check_existing_credential(platform):
+    """Function to chek if credentials exist"""
     return Credentials.credentials_exist(platform)
 
 def display_credential():
+    """funtion to display  all  credentials"""
     return Credentials.display_credentials()
 
 
@@ -44,7 +51,7 @@ def main():
     print('\n')
 
     while True:
-        print("use these short codes : ca - creat your account, dc- delete account gp-generate password")
+        print("use these short codes : ca - creat your account, dc- delete account ")
         short_code = input().lower()
         if short_code == 'ca':
             print("Create account")
@@ -97,6 +104,8 @@ def main():
                     print('/n')
                     print(f"{platform} credential has been created")
                     print('/n')
+
+                    
                 elif short_code ==  'dsc':
                     if display_credential():
                         print("Heres the list of all your ceredntials")
@@ -130,6 +139,14 @@ def main():
                         print("credentials deleted")
                     else:
                         print("can't find credential to delete")
+
+                
+                elif short_code == 'gp':
+                    print("what platform would you want to geneate password for? >")
+                    platform = input()
+                    S = 8
+                    rand = ''.join(random.choices(string.ascii_letters + string.digits,k = S))
+                    print("Your  generated password is:"+str(rand))
            
 
         elif short_code == 'dc':
@@ -141,15 +158,7 @@ def main():
                     print("Accont deleted")
               else:
                     print("Dont have an account")
-
-        elif short_code == 'gp':
-                    print("what platform would you want to geneate password for? >")
-                    platform = input()
-                    S = 8
-                    rand = ''.join(random.choices(string.ascii_letters + string.digits,k = S))
-                    print("Your  generated password is:"+str(rand))
-                    password = input()
-                    
+              
         else:
             print("short code not available")
 if __name__ == '__main__':
