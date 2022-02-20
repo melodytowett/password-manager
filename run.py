@@ -16,15 +16,15 @@ def save_account(user):
 def delete_account(user):
     user.delete_user()
 
-def add_credential(platform,u_name,e_address,t_password,gen_password,p_number):
-    new_credential = Credentials(platform,u_name,e_address,p_number,t_password,gen_password)
+def add_credential(platform,u_name,e_address,password,p_number):
+    new_credential = Credentials(platform,u_name,e_address,p_number,password)
     return new_credential
 
 def save_credential(credential):
     return Credentials.save_credentials(credential)
 
 def del_credential(credential):
-    credential.delete_ceredntial()
+    credential.delete_credential()
 
 def find_credential(platform):
     return Credentials.find_by_platform(platform)
@@ -44,7 +44,7 @@ def main():
     print('\n')
 
     while True:
-        print("use these short codes : ca - creat your account, dc- delete account")
+        print("use these short codes : ca - creat your account, dc- delete account gp-generate password")
         short_code = input().lower()
         if short_code == 'ca':
             print("Create account")
@@ -90,16 +90,10 @@ def main():
                     p_number = input()
 
                     print("password")
-                    t_password = input()
-
-                    print("generate your password")
-                    S = 8
-                    rand = ''.join(random.choices(string.ascii_letters + string.digits,k = S))
-                    print("Your  generated password is:"+str(rand))
-                    gen_password = input()  
+                    password = input() 
 
 
-                    save_credential(add_credential(platform,u_name,e_address,t_password,gen_password,p_number))
+                    save_credential(add_credential(platform,u_name,e_address,password,p_number))
                     print('/n')
                     print(f"{platform} credential has been created")
                     print('/n')
@@ -114,15 +108,16 @@ def main():
 
                         else:
                             
-                            print("No credentials saved yet")
+                            print("Nothing to display")
                           
                 elif short_code == "fc":
                     print("Enter the platform you wan to find")
                     search_credential = input()
                     if check_existing_credential(search_credential):
                         search_platform = find_credential(search_credential)
-                        print(f"{search_platform.username} {search_platform.platform} {search_platform.phone_number} {search_platform.username}")
+                        print(f"{search_platform.platform} {search_platform.username} {search_platform.phone_no} {search_platform.email}")
                         print('-'*20)
+                        print(f"Your accounts are: {search_platform.platform}")
                     else:
                         print("Credential not found")
 
@@ -130,11 +125,11 @@ def main():
                     print("Which platform credential do you want to delete\n")
                     delete_platform = input()
                     if check_existing_credential(delete_platform):
-                        creden = find_credential(delete_platform)
-                        del_credential(creden)
+                        credential = find_credential(delete_platform)
+                        del_credential(credential)
                         print("credentials deleted")
                     else:
-                        print("credentils not found")
+                        print("can't find credential to delete")
            
 
         elif short_code == 'dc':
@@ -146,6 +141,14 @@ def main():
                     print("Accont deleted")
               else:
                     print("Dont have an account")
+
+        elif short_code == 'gp':
+                    print("what platform would you want to geneate password for? >")
+                    platform = input()
+                    S = 8
+                    rand = ''.join(random.choices(string.ascii_letters + string.digits,k = S))
+                    print("Your  generated password is:"+str(rand))
+                    password = input()
                     
         else:
             print("short code not available")
