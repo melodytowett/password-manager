@@ -1,3 +1,7 @@
+import email
+import pyperclip
+
+
 class Credentials:
     credential_list = []
 
@@ -42,6 +46,14 @@ class Credentials:
     @classmethod
     def display_credentials(cls):
         '''
-        method to display credentials saved
+        method to display credentiasz saved
         '''
         return cls.credential_list
+    
+
+    @classmethod
+    def copy_password(cls,platform):
+        credentials_found = Credentials.find_by_platform(platform)
+        pyperclip.copy(credentials_found.password)
+        password_copied = pyperclip.paste()
+        print(password_copied)

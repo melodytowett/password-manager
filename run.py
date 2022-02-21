@@ -28,7 +28,7 @@ def save_credential(credential):
 
 def del_credential(credential):
     """funtion to delete credential"""
-    credential.delete_credential()
+    return Credentials.delete_credentials(credential)
 
 def find_credential(platform):
     """Function to find save credentials by platfrom name"""
@@ -39,8 +39,11 @@ def check_existing_credential(platform):
     return Credentials.credentials_exist(platform)
 
 def display_credential():
-    """funtion to display  all  credentials"""
+    """funtion to display  all credentials"""
     return Credentials.display_credentials()
+
+def copy_this(platform):
+    return Credentials.copy_password(platform)
 
 
 
@@ -71,16 +74,17 @@ def main():
 
             save_account(create_account(f_name,l_name,p_id,e_mail))
             print('\n')
-            print(f"Your Account {f_name} {l_name} has been created")
+            print(f"Your Password Locekr Account {f_name} {l_name} has been created")
             print('\n')
 
             while True:
-                print("""USE THESE SHORT CODES :
+                print("""USE THESE SHORT CODES TO ADD CREDENTIALS:
                   ip-input platform,
                   del-c -delete credentials,
                   fc-find credentials, 
                   dsc-display credentials,
-                  gp-generate platform random password""")
+                  gp-generate platform random passwor 
+                  cp-copy password """)
                 short_code = input().lower()
 
                 if short_code == 'ip':
@@ -146,7 +150,17 @@ def main():
                     platform = input()
                     S = 8
                     rand = ''.join(random.choices(string.ascii_letters + string.digits,k = S))
-                    print("Your  generated password is:"+str(rand))
+                    print("Your  generated password is:" +str(rand))
+
+                elif short_code == 'cp':
+                  print("Enter platform you want its password copied")
+                  my_password = input()
+                  if check_existing_credential(my_password):
+                     credentials = find_credential(my_password)
+                     credentials.copy_password(my_password)
+                     print("password copied")
+                  else:
+                      print("nothing copied")
            
 
         elif short_code == 'dc':
@@ -158,6 +172,8 @@ def main():
                     print("Accont deleted")
               else:
                     print("Dont have an account")
+
+        
               
         else:
             print("short code not available")

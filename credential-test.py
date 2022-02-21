@@ -1,6 +1,8 @@
 #!/usr/bin/env python3.9
 from sys import platform
 import unittest
+
+import pyperclip
 from credentials import Credentials
 
 class TestCredentials(unittest.TestCase):
@@ -84,6 +86,11 @@ class TestCredentials(unittest.TestCase):
 
     def test_display_all_credentials(self):
         self.assertEqual(Credentials.display_credentials(),Credentials.credential_list)
+
+    def test_copy_password (self):
+        self.new_credential.save_credentials()
+        Credentials.copy_password()
+        self.assertEqual(self.new_credential.password, pyperclip.paste())
 
 
 if __name__ == '__main__':
